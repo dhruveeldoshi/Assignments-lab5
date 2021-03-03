@@ -19,7 +19,7 @@ module.exports = {
 
     // Error Handling Starts
     if (!title || !plot || !rating || !runtime || !genre || !cast || !info)
-      throw " All fields need to have valdi values.";
+      throw " All fields need to have valid values.";
     if (
       typeof title !== "string" ||
       title.trim().length < 1 ||
@@ -94,7 +94,7 @@ module.exports = {
       for (i in movieList) {
         movieList[i]._id = movieList[i]._id.toString();
       }
-      // await movieList._id.toString();
+      //movieList._id.toString();
       return movieList;
     } // return movieList;
   }, //getAll function ends.
@@ -107,7 +107,7 @@ module.exports = {
     //TODO: objectId conversion left.
     const movieCollection = await movies();
     const movieList = await movieCollection.findOne({ _id: newId });
-    if (movieList === null) throw "Could not find Movie";
+    if (movieList === null) throw `Could not find a movie with id ${newId}`;
     movieList["_id"] = movieList["_id"].toString();
     return movieList;
   }, //get function ends.
@@ -151,7 +151,7 @@ module.exports = {
       { $set: updateTitle }
     );
     if (updatedMovie.modifiedCount === 0) {
-      throw "Could not change the title of the movie successfully.";
+      throw "Could not change the title of the movie.";
     }
 
     return await this.get(newId);
