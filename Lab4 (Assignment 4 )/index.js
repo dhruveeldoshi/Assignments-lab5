@@ -63,13 +63,13 @@ async function main() {
   // 11. Try to create a movie with bad input parameters to make sure it throws errors.
   try {
     const wrongInputMovie = await movies.create(
-      "Inception",
+      "K.G.F.",
       "Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction, stealing valuable secrets from deep within the subconscious during the dream state, when the mind is at its most vulnerable.",
       "PG-18",
       "2hr 31min",
       "Sci-Fic",
-      ["Leonardo DiCaprio", 5, "Tom Hardy"],
-      { yearReleased: 2010 }
+      ["Leonardo DiCaprio", 7, "Tom Hardy"],
+      { director: 199, yearReleased: 2029 }
     );
     console.log(wrongInputMovie);
   } catch (error) {
@@ -79,7 +79,7 @@ async function main() {
   //12. Try to remove a movie that does not exist to make sure it throws errors.
 
   try {
-    const removeMovie = await movies.remove(inception._id);
+    const removeMovie = await movies.remove("603966fa9243bf4500fd56fe");
     console.log(removeMovie);
   } catch (e) {
     console.log(e);
@@ -98,10 +98,7 @@ async function main() {
 
   //14. Try to rename a movie passing in invalid data for the parameter to make sure it throws errors.
   try {
-    const renameWronParam = await movies.rename(
-      "testObjectId",
-      "Shootout at .."
-    );
+    const renameWronParam = await movies.rename(kgf._id, 124);
     console.log(renameWronParam);
   } catch (e) {
     console.log(e);
@@ -109,7 +106,7 @@ async function main() {
 
   //15. Try getting a movie by ID that does not exist to make sure it throws errors.
   try {
-    const getWrongMovie = await movies.get("NoIdFound");
+    const getWrongMovie = await movies.get(inception._id);
     console.log(getWrongMovie);
   } catch (error) {
     console.log(error);

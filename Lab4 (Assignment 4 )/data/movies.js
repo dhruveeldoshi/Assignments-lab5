@@ -37,8 +37,9 @@ module.exports = {
     if (
       Array.isArray(cast) != true ||
       cast.length < 1 ||
-      cast.every((el) => {
-        if (typeof el != "string" || el.trim().length === 0) return;
+      cast.forEach((el) => {
+        if (typeof el !== "string" || el.trim().length === 0)
+          throw `The provided cast : ${el} is not a string`;
       })
     )
       throw "Cast should ne either Array which contains atleast 1 string element init.";
@@ -90,6 +91,9 @@ module.exports = {
     if (movieList.length === 0 || movieList.length == undefined) {
       return [];
     } else {
+      for (i in movieList) {
+        movieList[i]._id = movieList[i]._id.toString();
+      }
       // await movieList._id.toString();
       return movieList;
     } // return movieList;
@@ -118,7 +122,7 @@ module.exports = {
 
     const movieCollection = await movies();
     const movieName = await movieCollection.findOne({ _id: newId });
-    if (!movieName) throw "Could not find Movie";
+    if (!movieName) throw `Could not find Movie with the id: ${newId}`;
 
     //TODO: Console.log to see which movie is getting removied 1.get() method
     const movieDeletion = await movieCollection.removeOne({ _id: newId });
@@ -134,7 +138,7 @@ module.exports = {
     errorHandlingId(id);
     if (!newTitle) throw "newTitle is not provide";
     if (typeof newTitle !== "string" || newTitle.trim().length === 0)
-      throw "Provided input for newTitle is either not string or is empty.";
+      throw "Provided input for newTitle is either not a string or it is empty.";
 
     //TODO: before updating check if it exist in the database.
     newId = ObjectId(id);
@@ -147,7 +151,7 @@ module.exports = {
       { $set: updateTitle }
     );
     if (updatedMovie.modifiedCount === 0) {
-      throw "Could not change the title of the movie successfully.;";
+      throw "Could not change the title of the movie successfully.";
     }
 
     return await this.get(newId);
