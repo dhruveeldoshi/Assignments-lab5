@@ -1,0 +1,15 @@
+{
+  "name": "lab3",
+  "version": "1.0.0",
+  "description": "async await assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Dhruveel Doshi 10459460",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
